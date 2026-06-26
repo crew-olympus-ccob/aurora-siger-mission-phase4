@@ -32,22 +32,44 @@ Requer apenas **Python 3** — sem dependências externas.
 python codigo_fonte.py
 ```
 
-Cada execução gera um cenário diferente com base em valores aleatórios dos sensores.
+---
+
+## Módulos da colônia
+
+| ID | Nome | Consumo (kW) | Prioridade |
+|---|---|---|---|
+| HAB | Habitação | 18.5 | 4/5 |
+| MED | Suporte Médico | 12.0 | 5/5 |
+| OXI | Produção de Oxigênio | 22.0 | 5/5 |
+| CTR | Centro de Controle | 15.0 | 4/5 |
+| ENE | Armazenamento de Energia | 5.0 | 5/5 |
+| AGR | Agricultura | 20.0 | 2/5 |
+| LAB | Laboratório Científico | 14.0 | 2/5 |
+| COM | Comunicação | 10.0 | 3/5 |
+
+Módulos com **prioridade ≥ 4** (MED, OXI, ENE, HAB, CTR) são considerados críticos e recebem energia prioritária em qualquer emergência.
+
+### Descrição dos módulos
+
+| ID | Descrição |
+|---|---|
+| HAB | Onde a tripulação mora e descansa. Parte essencial da sobrevivência da colônia. |
+| MED | Cuida da saúde da tripulação. Atende doenças e ferimentos. |
+| OXI | Gera o ar que todos respiram. Sem ele, não há vida na base. |
+| ENE | Armazena e distribui energia para toda a colônia. Mantém tudo funcionando. |
+| CTR | Monitora e controla todos os sistemas. Funciona como o cérebro da colônia. |
+| COM | Liga os módulos entre si e com a Terra. Mantém a comunicação geral. |
+| AGR | Produz alimentos para a tripulação. Garante a alimentação da colônia. |
+| LAB | Realiza pesquisas e testes. Contribui para o desenvolvimento da missão. |
 
 ---
 
-## Exemplo de uso (valores variam a cada execução)
+## Exemplo de uso
 
 **Dijkstra — rota de envio de energia de ENE para LAB:**
 
-Entrada (módulo de origem selecionado pelo operador):
 ```
-Módulo de origem: ENE
-```
-
-Saída do sistema:
-```
-  Distancias minimas a partir de: Armazenamento de Energia (ENE)
+Distancias minimas a partir de: Armazenamento de Energia (ENE)
 
   Dest.  Nome                         Dist.    Caminho
   ------ ---------------------------- -------- ----------------------------
@@ -64,36 +86,29 @@ Saída do sistema:
 
 **Simulação de falha do módulo CTR:**
 
-Entrada (módulo com falha selecionado pelo operador):
-```
-Módulo com falha: CTR
-```
-
-Saída do sistema:
 ```
   Simulando falha: Centro de Controle (CTR)
   Consumo retirado  : 15.0 kW
   Prioridade        : 4/5
 
   Verificando conectividade após a falha...
-  Rede permanece conectada. 7 modulos em operacao.
+  Rede permanece conectada. 7 módulos em operação.
 
-  MODULO CRITICO EM FALHA! Acionar protocolo de emergencia imediatamente.
+  MÓDULO CRÍTICO EM FALHA! Acionar protocolo de emergência imediatamente.
 ```
 
 ---
 
 ## Modelagem matemática
 
-| Variável | Significado |
-|---|---|
-| C(t) | consumo total da colônia no mês t (kW) |
-| C0 | consumo inicial dos módulos ativos (kW) |
-| alpha | taxa de crescimento mensal (0.05 = 5% ao mês) |
-| t | tempo em meses desde a ativação da colônia |
+O crescimento do consumo energético da colônia é modelado por uma função exponencial:
 
 ```
 C(t) = C0 * e^(alpha * t)
+
+C0    = consumo inicial dos módulos ativos (kW)
+alpha = taxa de crescimento mensal (0.05 = 5% ao mês)
+t     = tempo em meses desde a ativação da colônia
 ```
 
 Com alpha = 0.05, o consumo dobra em aproximadamente 14 meses — definindo o prazo máximo para expansão da capacidade de geração de energia.
@@ -104,12 +119,4 @@ Com alpha = 0.05, o consumo dobra em aproximadamente 14 meses — definindo o pr
 
 ```
 codigo_fonte.py
-├── Bloco 1 — Estruturas de dados da infraestrutura
-├── Bloco 2 — Construção do grafo (matriz e lista de adjacência)
-├── Bloco 3 — Algoritmos de rede (BFS, DFS, Dijkstra, detecção de pontes)
-├── Bloco 4 — Modelagem matemática e otimização
-├── Bloco 5 — Sustentabilidade e governança (ESG)
-├── Bloco 6 — Simulações operacionais
-├── Bloco 7 — Funções de exibição
-└── Bloco 8 — Menu principal
-```
+├── Bloco 1 — Estruturas de dados da i
